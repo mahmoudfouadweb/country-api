@@ -33,18 +33,70 @@ const displayUI = function (data, className = '') {
 };
 
 // get Country Data
+// const getCountryData = function (country) {
+//   // first country
+//   fetch(`https://restcountries.com/v2/name/${country}`)
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error('opps country not found 💩');
+//       }
+//       return response.json();
+//     })
+//     .then(data => {
+//       displayUI(data[0]);
+//       // const nighbour = data[0].borders[1];
+//       const nighbour = 'blabla';
+//       if (!nighbour) return;
+//       // second country
+//       return fetch(`https://restcountries.com/v2/alpha/${nighbour}`);
+//     })
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error('opps country not found 💩');
+//       }
+//       return response.json();
+//     })
+//     .then(data => displayUI(data, 'nighbour'))
+//     .catch(err => {
+//       console.error(`${err} 💥💥💥`);
+//       renderError(`Something went wrong 💥💥 ${err.message}. try again`);
+//     })
+//     .finally(() => {
+//       countriesContainer.style.opacity = 1;
+//     });
+// };
+// btn.addEventListener('click', e => {
+//   // e.preventDefault();
+//   getCountryData('egypt');
+// });
+
+const getJSON = function (url, msg) {
+  return fetch(url).then(response => {
+    if (!response.ok) {
+      throw new Error(`${msg} ${response.status}`);
+    }
+    return response.json();
+  });
+};
 const getCountryData = function (country) {
   // first country
-  fetch(`https://restcountries.com/v2/name/${country}`)
-    .then(response => response.json())
+  getJSON(
+    `https://restcountries.com/v2/name/${country}`,
+    'opps country not found 💩'
+  )
     .then(data => {
       displayUI(data[0]);
-      const nighbour = data[0].borders[1];
-      if (!nighbour) return;
+      // const nighbour = data[0].borders[1];
+      const nighbour = 'blabla';
+      if (!nighbour) {
+        new Error('no nighbour found');
+      }
       // second country
-      return fetch(`https://restcountries.com/v2/alpha/${nighbour}`);
+      return getJSON(
+        `https://restcountries.com/v2/alpha/${nighbour}`,
+        'opps country not found 💩'
+      );
     })
-    .then(res => res.json())
     .then(data => displayUI(data, 'nighbour'))
     .catch(err => {
       console.error(`${err} 💥💥💥`);
@@ -55,7 +107,7 @@ const getCountryData = function (country) {
     });
 };
 btn.addEventListener('click', e => {
-  // e.preventDefault();
   getCountryData('egypt');
 });
-getCountryData('erwwqawq');
+
+// getCountryData('erwwqawq');
