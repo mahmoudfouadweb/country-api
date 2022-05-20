@@ -70,14 +70,18 @@ const displayUI = function (data, className = '') {
 //   getCountryData('egypt');
 // });
 
+// json function to make the code more clean
 const getJSON = function (url, msg) {
   return fetch(url).then(response => {
     if (!response.ok) {
+      // make throw new error not  new Error beacuse page not found not failed fetch data
+      // so creating own error to handle the error to display it to the clint
       throw new Error(`${msg} ${response.status}`);
     }
     return response.json();
   });
 };
+// get country data
 const getCountryData = function (country) {
   // first country
   getJSON(
@@ -89,6 +93,7 @@ const getCountryData = function (country) {
       // const nighbour = data[0].borders[1];
       const nighbour = 'blabla';
       if (!nighbour) {
+        // make new error not throw new Error beacuse failed fetch data not page not found
         new Error('no nighbour found');
       }
       // second country
