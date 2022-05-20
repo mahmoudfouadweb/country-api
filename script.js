@@ -58,3 +58,4 @@ btn.addEventListener('click', e => {
   // e.preventDefault();
   getCountryData('egypt');
 });
+getCountryData('erwwqawq');
