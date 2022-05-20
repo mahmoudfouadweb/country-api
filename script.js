@@ -12,7 +12,6 @@ const renderError = function (msg) {
 };
 
 const displayUI = function (data, className = '') {
-  // console.log(data);
   let html = `
   <div class="${className}">
    <article class="country">
@@ -31,44 +30,6 @@ const displayUI = function (data, className = '') {
   countriesContainer.insertAdjacentHTML('beforeend', html);
   // countriesContainer.style.opacity = 1;
 };
-
-// get Country Data
-// const getCountryData = function (country) {
-//   // first country
-//   fetch(`https://restcountries.com/v2/name/${country}`)
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error('opps country not found 💩');
-//       }
-//       return response.json();
-//     })
-//     .then(data => {
-//       displayUI(data[0]);
-//       // const nighbour = data[0].borders[1];
-//       const nighbour = 'blabla';
-//       if (!nighbour) return;
-//       // second country
-//       return fetch(`https://restcountries.com/v2/alpha/${nighbour}`);
-//     })
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error('opps country not found 💩');
-//       }
-//       return response.json();
-//     })
-//     .then(data => displayUI(data, 'nighbour'))
-//     .catch(err => {
-//       console.error(`${err} 💥💥💥`);
-//       renderError(`Something went wrong 💥💥 ${err.message}. try again`);
-//     })
-//     .finally(() => {
-//       countriesContainer.style.opacity = 1;
-//     });
-// };
-// btn.addEventListener('click', e => {
-//   // e.preventDefault();
-//   getCountryData('egypt');
-// });
 
 // json function to make the code more clean
 const getJSON = function (url, msg) {
@@ -107,6 +68,7 @@ const getCountryData = function (country) {
       console.error(`${err} 💥💥💥`);
       renderError(`Something went wrong 💥💥 ${err.message}. try again`);
     })
+    // after any response status do this
     .finally(() => {
       countriesContainer.style.opacity = 1;
     });
@@ -116,3 +78,41 @@ btn.addEventListener('click', e => {
 });
 
 // getCountryData('erwwqawq');
+
+// get Country Data
+// const getCountryData = function (country) {
+//   // first country
+//   fetch(`https://restcountries.com/v2/name/${country}`)
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error('opps country not found 💩');
+//       }
+//       return response.json();
+//     })
+//     .then(data => {
+//       displayUI(data[0]);
+//       // const nighbour = data[0].borders[1];
+//       const nighbour = 'blabla';
+//       if (!nighbour) return;
+//       // second country
+//       return fetch(`https://restcountries.com/v2/alpha/${nighbour}`);
+//     })
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error('opps country not found 💩');
+//       }
+//       return response.json();
+//     })
+//     .then(data => displayUI(data, 'nighbour'))
+//     .catch(err => {
+//       console.error(`${err} 💥💥💥`);
+//       renderError(`Something went wrong 💥💥 ${err.message}. try again`);
+//     })
+//     .finally(() => {
+//       countriesContainer.style.opacity = 1;
+//     });
+// };
+// btn.addEventListener('click', e => {
+//   // e.preventDefault();
+//   getCountryData('egypt');
+// });
