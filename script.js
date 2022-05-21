@@ -242,7 +242,9 @@ const getPosition = function () {
 const whereAmI = async function () {
   // get geolocation latitude and longitud
   const pos = await getPosition();
+  // console.log(pos);
   const { latitude: lat, longitude: lng } = pos.coords;
+  console.log(lat, lng);
   // get geolocation result to define a country
   const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
   const dataGeo = await resGeo.json();
@@ -254,7 +256,7 @@ const whereAmI = async function () {
   );
   const data = await res.json();
   // dislpay data to UI
-  displayUI(data[0]);
+  displayUI(data[0], 'country');
   console.log(data);
   // set nighbours
   const nighbour = await data[0].borders[0];
@@ -264,6 +266,7 @@ const whereAmI = async function () {
   );
   const dataNighbour = await resNighbour.json();
   console.log(dataNighbour);
+  displayUI(dataNighbour, 'nighbour');
 };
 
 btn.addEventListener('click', e => {
