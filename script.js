@@ -211,65 +211,77 @@
 //   console.log(res);
 // });
 
-const btn = document.querySelector('.btn-country');
-const countriesContainer = document.querySelector('.countries');
+// const btn = document.querySelector('.btn-country');
+// const countriesContainer = document.querySelector('.countries');
 
-const displayUI = function (data, className = '') {
-  let html = `
-    <div class="${className}">
-     <article class="country">
-      <img class="country__img" src="${data.flag}" />
-      <div class="country__data">
-        <h3 class="country__name">${data.name}</h3>
-        <h3 class="country__name">${data.nativeName}</h3>
-        <h4 class="country__region">${data.capital}</h4>
-        <p class="country__row"><span>👫</span>${data.population}</p>
-        <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
-        <p class="country__row"><span>💰</span>${data.currencies[0].name} ${data.currencies[0].symbol}</p>
-      </div>
-    </article>
-  </div>
-    `;
-  countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
-};
-const getPosition = function () {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
+// const displayUI = function (data, className = '') {
+//   let html = `
+//     <div class="${className}">
+//      <article class="country">
+//       <img class="country__img" src="${data.flag}" />
+//       <div class="country__data">
+//         <h3 class="country__name">${data.name}</h3>
+//         <h3 class="country__name">${data.nativeName}</h3>
+//         <h4 class="country__region">${data.capital}</h4>
+//         <p class="country__row"><span>👫</span>${data.population}</p>
+//         <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+//         <p class="country__row"><span>💰</span>${data.currencies[0].name} ${data.currencies[0].symbol}</p>
+//       </div>
+//     </article>
+//   </div>
+//     `;
+//   countriesContainer.insertAdjacentHTML('beforeend', html);
+//   countriesContainer.style.opacity = 1;
+// };
+// const getPosition = function () {
+//   return new Promise((resolve, reject) => {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+// // use 3 api fetch
+// const whereAmI = async function () {
+//   // get geolocation latitude and longitud
+//   const pos = await getPosition();
+//   // console.log(pos);
+//   const { latitude: lat, longitude: lng } = pos.coords;
+//   console.log(lat, lng);
+//   // get geolocation result to define a country
+//   const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+//   const dataGeo = await resGeo.json();
+//   console.log(resGeo);
+//   console.log(dataGeo.country);
+//   // fetch dedected country
+//   const res = await fetch(
+//     `https://restcountries.com/v2/name/${dataGeo.country}`
+//   );
+//   const data = await res.json();
+//   // dislpay data to UI
+//   displayUI(data[0], 'country');
+//   console.log(data);
+//   // set nighbours
+//   const nighbour = await data[0].borders[0];
+//   // fetch nighbour data
+//   const resNighbour = await fetch(
+//     `https://restcountries.com/v2/alpha/${nighbour}`
+//   );
+//   const dataNighbour = await resNighbour.json();
+//   console.log(dataNighbour);
+//   displayUI(dataNighbour, 'nighbour');
+// };
+
+// btn.addEventListener('click', e => {
+//   e.preventDefault();
+//   whereAmI();
+// });
+const image = document.querySelector('.images');
+const createImage = function (imgPath) {
+  const img = document.createElement('img');
+  const src = (img.src = `img/${imgPath}`);
+  console.log(src);
+  return new Promise(resolve => {
+    setTimeout(() => {
+      image.insertAdjacentElement('beforeend', img);
+    }, 2000);
   });
 };
-// use 3 api fetch
-const whereAmI = async function () {
-  // get geolocation latitude and longitud
-  const pos = await getPosition();
-  // console.log(pos);
-  const { latitude: lat, longitude: lng } = pos.coords;
-  console.log(lat, lng);
-  // get geolocation result to define a country
-  const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
-  const dataGeo = await resGeo.json();
-  console.log(resGeo);
-  console.log(dataGeo.country);
-  // fetch dedected country
-  const res = await fetch(
-    `https://restcountries.com/v2/name/${dataGeo.country}`
-  );
-  const data = await res.json();
-  // dislpay data to UI
-  displayUI(data[0], 'country');
-  console.log(data);
-  // set nighbours
-  const nighbour = await data[0].borders[0];
-  // fetch nighbour data
-  const resNighbour = await fetch(
-    `https://restcountries.com/v2/alpha/${nighbour}`
-  );
-  const dataNighbour = await resNighbour.json();
-  console.log(dataNighbour);
-  displayUI(dataNighbour, 'nighbour');
-};
-
-btn.addEventListener('click', e => {
-  e.preventDefault();
-  whereAmI();
-});
+document.body.addEventListener('DOMContentLoaded', createImage('img-1.jpg'));
