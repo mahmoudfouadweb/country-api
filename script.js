@@ -8,7 +8,7 @@ const countriesContainer = document.querySelector('.countries');
 // render errors
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
-  countriesContainer.style.opacity = 1;
+  // countriesContainer.style.opacity = 1;
 };
 
 const displayUI = function (data, className = '') {
@@ -29,7 +29,7 @@ const displayUI = function (data, className = '') {
 </div>
   `;
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
+  // countriesContainer.style.opacity = 1;
 };
 
 // get Country Data
@@ -48,7 +48,10 @@ const getCountryData = function (country) {
     .then(data => displayUI(data, 'nighbour'))
     .catch(err => {
       console.error(`${err} 💥💥💥`);
-      renderError(`Something went wrong 💥💥 ${err.messege}. try again`);
+      renderError(`Something went wrong 💥💥 ${err.message}. try again`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
     });
 };
 btn.addEventListener('click', e => {
