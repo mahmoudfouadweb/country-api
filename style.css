@@ -116,6 +116,8 @@ body {
   display: block;
   width: 80rem;
   margin: 4rem;
+  transform: scale(2);
+  transition-delay: 1.5;
 }
 
 .images img.parallel {
