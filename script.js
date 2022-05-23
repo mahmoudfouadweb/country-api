@@ -366,13 +366,13 @@
 //   })
 //   .catch(err => console.error(err));
 
-const image = document.querySelector('.images');
+// const image = document.querySelector('.images');
 
-const wait = function (sec) {
-  return new Promise(resolve => {
-    setTimeout(resolve, sec * 1000);
-  });
-};
+// const wait = function (sec) {
+//   return new Promise(resolve => {
+//     setTimeout(resolve, sec * 1000);
+//   });
+// };
 
 // console.log(wait(2).then(() => console.log('hii')));
 
@@ -412,4 +412,89 @@ const wait = function (sec) {
 //     console.log('image 2 gone');
 //   });
 
-const imgFade = async function (path) {};
+const btn = document.querySelector('.btn-country');
+const countriesContainer = document.querySelector('.countries');
+
+const displayUI = function (data, className = '') {
+  let html = `
+    <div class="${className}">
+     <article class="country">
+      <img class="country__img" src="${data.flag}" />
+      <div class="country__data">
+        <h3 class="country__name">${data.name}</h3>
+        <h3 class="country__name">${data.nativeName}</h3>
+        <h4 class="country__region">${data.capital}</h4>
+        <p class="country__row"><span>👫</span>${data.population}</p>
+        <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
+        <p class="country__row"><span>💰</span>${data.currencies[0].name} ${data.currencies[0].symbol}</p>
+      </div>
+    </article>
+  </div>
+    `;
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
+};
+
+// const position = function () {
+//   return new Promise((resolve, reject) => {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+
+// const displayError = function (msg) {
+//   const message = `${msg}`;
+//   countriesContainer.insertAdjacentText('beforeend', message);
+// };
+// const whereAmI = async () => {
+//   try {
+//     // geolocation detect
+//     const pos = await position();
+//     const { latitude: lat, longitude: lng } = pos.coords;
+//     // Reverse geolocation
+//     const resPos = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+//     if (!resPos.ok) {
+//       throw new Error('server not responding 💥');
+//     }
+//     // console.log(resPos);
+//     const dataPos = await resPos.json();
+//     console.log(dataPos);
+//     const resCountry = await fetch(
+//       `https://restcountries.com/v2/name/${dataPos.country}`
+//     );
+//     const dataCountry = await resCountry.json();
+//     console.log(resCountry);
+//     console.log(dataCountry[0]);
+//     // console.log(lat, lng);
+//     displayUI(dataCountry[0]);
+//     const resNighbour = await fetch(
+//       `https://restcountries.com/v2/alpha/${dataCountry[0].borders[0]}`
+//     );
+//     if (!resNighbour.ok) {
+//       throw new Error('no nighbour found 💩');
+//     }
+//     const dataNighbour = await resNighbour.json();
+//     console.log(dataNighbour);
+//     console.log(resNighbour);
+//     displayUI(dataNighbour, 'nighbour');
+//   } catch (err) {
+//     console.log(`${err} ${err.message} 💥💥`);
+//     displayError(err.message);
+//   }
+// };
+// whereAmI();
+
+const position = function () {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+const whereAmI = async function () {
+  const pos = await position();
+  const { latitude: lat, longitude: lng } = pos.coords;
+  const res = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
+  // console.log(res);
+  const data = await res.json();
+  displayUI(data);
+};
+
+whereAmI();
